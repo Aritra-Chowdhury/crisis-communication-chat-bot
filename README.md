@@ -13,7 +13,6 @@ In this tutorial, you will:
 
 Here is a demo of the final application:
 
-![Chatbot demo](readme_images/covid-bot-demo.gif)
 
 ## Prerequisites
 
