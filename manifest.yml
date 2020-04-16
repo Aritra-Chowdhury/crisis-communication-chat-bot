@@ -2,5 +2,5 @@ applications:
   - name: covid-crisis-communication-chatbot-hola
     command: npm start
     path: .
-    memory: 256M
+    memory: 128M
     instances: 1
