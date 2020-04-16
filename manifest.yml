@@ -1,4 +1,4 @@
 applications:
-  - name: crisis-assistant-20200416041611928
+  - name: crisis-communication-toolchain-20200416045630649
     memory: 256M
     buildpack: sdk-for-nodejs
