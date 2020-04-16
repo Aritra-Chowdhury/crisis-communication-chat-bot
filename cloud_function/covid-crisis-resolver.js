@@ -73,7 +73,7 @@ async function main(params) {
     
    
     let queryParams=null;
-    if(params.typeCheck==="numeric") {
+    if(params.type==="numeric") {
         const numericsQueryParams = {
           environment_id: params.env_id_numeric,
           collection_id: params.collection_id_numeric,
