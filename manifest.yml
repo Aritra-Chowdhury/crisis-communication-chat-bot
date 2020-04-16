@@ -1,5 +1,5 @@
 applications:
-  - name: covid-crisis-communication-chatbot
+  - name: crisis-assistant-20200416041611928
     command: npm start
     path: .
     memory: 256M
