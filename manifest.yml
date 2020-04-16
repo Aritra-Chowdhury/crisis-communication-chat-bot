@@ -1,4 +1,6 @@
 applications:
-  - name: crisis-communication-toolchain-20200416045630649
-    memory: 128M
-    buildpack: sdk-for-nodejs
+  - name: covid-crisis-communication-chatbot-hola
+    command: npm start
+    path: .
+    memory: 256M
+    instances: 1
