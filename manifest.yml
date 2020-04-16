@@ -1,7 +1,4 @@
 applications:
   - name: crisis-assistant-20200416041611928
-    buildpack: sdk-for-nodejs
-    command: npm start
-    path: .
     memory: 256M
-    instances: 1
+    buildpack: sdk-for-nodejs
