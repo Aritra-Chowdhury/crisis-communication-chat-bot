@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<style>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell;
+}
+
+.flex {
+  display: flex;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  background: #fff;
+  margin: 0px auto;
+  text-align: center;
+}
+#container header {
+  font-size: 32px;
+  margin-top: 25px;
+}
+#container .date {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+#container .needToKnow {
+  font-size: 13px;
+  margin-top: 2px;
+  margin-bottom: 30px;
+}
+
+.postContainer {
+  width: 900px;
+  height: 240px;
+  background: #f3f6f8;
+  border-radius: 10px;
+  padding: 8px 16px;
+  margin: 0 auto;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  display: flex;
+  position: relative;
+  text-align: left;
+  margin-bottom: 40px;
+  transition-duration: .5s;
+}
+.postContainer .mainImage {
+  width: 320px;
+  height: 256px;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  margin: 0;
+  top: -8px;
+  left: -16px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  padding: 0;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+}
+.postContainer .mainImage .image {
+  object-fit: cover;
+  height: 260px;
+  width: 320px;
+}
+
+.postContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.detailContainer {
+  width: 580px;
+}
+.detailContainer .detailTopLeft {
+  width: 85%;
+}
+.detailContainer .detailTopRight {
+  width: 10%;
+  background: transparent;
+  float: right;
+}
+.detailContainer .detailTopRight button {
+  height: 35px;
+  width: 90px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 2px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  transition: all 300ms ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+.detailContainer .detailTopRight button:hover {
+  color: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.detailContainer .title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  text-overflow: ellipsis;
+}
+.detailContainer .author {
+  font-size: 14px;
+  margin: 1px 0px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.detailContainer .detail {
+  font-size: 14px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  height: 35px;
+  overflow: hidden;
+}
+
+.editorPickContainer {
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 8px 16px;
+  background-color: #fff;
+}
+.editorPickContainer .editorsPick {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.editorPickContainer .imageContainer {
+  width: 25px;
+  margin: 4px;
+}
+.editorPickContainer .editorsPickDetail {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 4px 5px;
+  overflow: hidden;
+  height: 40px;
+}
+.editorPickContainer .seeMore {
+  color: #3d94c4;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 4px 5px;
+}
+
+.authorImage {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="root"><div>
+<script type="text/babel">
+const generateRandomUserImage = () => {
+  let random = Math.floor(Math.random() * 70);
+  let gender = ['men', 'women'][Math.floor(Math.random() * 2)];
+  return `https://randomuser.me/api/portraits/${gender}/${random}.jpg`;
+};
+
+const PostContainer = props => {
+  const { authorImage, content, description, urlToImage, detail, title, author, source, url, editorsPick } = props.metaData;
+  return (
+    React.createElement("div", { className: "postContainer" },
+    React.createElement("div", { className: "mainImage" },
+    React.createElement("img", { className: "image", src: urlToImage })),
+
+    React.createElement("div", { className: "detailContainer" },
+    React.createElement("div", { className: "flex" },
+    React.createElement("div", { className: "detailTopLeft" },
+    React.createElement("a", { href: url, target: "_blank" }, React.createElement("p", { className: "title hover" }, title && title.slice(0, 93))),
+    React.createElement("p", { className: "author" }, "By ", author && author.slice(0, 30), ", Editor at ", source && source.name)),
+
+    React.createElement("div", { className: "detailTopRight" },
+    React.createElement("button", null, "Share"))),
+
+
+    React.createElement("a", { href: url, target: "_blank" },
+    React.createElement("p", { className: "detail hover" }, description && description.slice(0, 165), "...")),
+    React.createElement("div", { className: "editorPickContainer hover" },
+    React.createElement("a", { href: url, target: "_blank" },
+    React.createElement("div", { className: "editorsPick" }, "Editors' Pick"),
+    React.createElement("div", { className: "flex" },
+    React.createElement("div", { className: "imageContainer" },
+    React.createElement("img", { className: "authorImage", src: authorImage || generateRandomUserImage() })),
+
+    React.createElement("div", { className: "flexColumn" },
+    React.createElement("div", { className: "editorsPickDetail" }, content && content.slice(0, 140), "..."),
+    React.createElement("div", { className: "seeMore" }, "See what people are saying -> "))))))));
+
+
+
+
+
+
+
+};
+
+
+const App = () => {
+  const [articles, setArticles] = React.useState([]);
+  React.useEffect(() => {
+    fetch('http://newsapi.org/v2/top-headlines?country=in&apiKey=d88837678f904443affbc28f7ee13ce1').then(data => {
+      const jsonData = data.json();
+      return jsonData;
+    }).then(results => {
+      const articles = results.articles;
+      console.log(articles[0]);
+      setArticles(articles);
+    });
+  }, []);
+  return (
+    React.createElement("div", { id: "container" },
+    React.createElement("header", null, "Daily Rundown"),
+    React.createElement("p", { className: "date" }, moment(Date.now()).format('dddd, MMMM D')),
+    React.createElement("p", { className: "needToKnow" }, React.createElement("a", { href: "https://in.linkedin.com/in/sukanta-banerjee-6ab375100", target: "_blank" }, "Hello user"), ", here's what you need to know today"),
+    React.createElement("main", null,
+    articles.map(post => React.createElement(PostContainer, { metaData: post, key: post.title }))),
+
+    React.createElement("div", { className: "bottom" },
+    React.createElement("p", null, "You\u2019re all caught up on today\u2019s top news"),
+
+
+    React.createElement("p", null, "Have a great day"))));
+
+
+
+
+
+};
+ReactDOM.render(React.createElement(App, null), document.getElementById('root'));</script>
+</body>
+</html>

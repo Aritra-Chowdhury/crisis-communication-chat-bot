@@ -15,17 +15,15 @@ function getRandomInt(max) {
 }
 
 async function main(params) {
-
-
   if (params.type === "api") {
-   /*
-    * Use of the 'Johns Hopkins CSSE' resource
-    */
+    /*
+     * Use of the 'Johns Hopkins CSSE' resource
+     */
     try {
       const summary = await request({
         method: "GET",
         uri: "https://api.covid19api.com/summary",
-        json: true
+        json: true,
       });
 
       if (params.country) {
@@ -35,7 +33,7 @@ async function main(params) {
             params.country.toLowerCase()
           ) {
             return {
-              result: `Total Cases: ${summary.Countries[i].TotalConfirmed}\nTotal Deaths: ${summary.Countries[i].TotalDeaths}\nTotal Recovered: ${summary.Countries[i].TotalRecovered}\n\nSource: Johns Hopkins CSSE`
+              result: `Total Cases: ${summary.Countries[i].TotalConfirmed}\nTotal Deaths: ${summary.Countries[i].TotalDeaths}\nTotal Recovered: ${summary.Countries[i].TotalRecovered}\n\nSource: Johns Hopkins CSSE`,
             };
           }
         }
@@ -51,64 +49,67 @@ async function main(params) {
         totalRecovered += summary.Countries[i].TotalRecovered;
       }
       return {
-        result: `Total Cases: ${totalCases}\nTotal Deaths: ${totalDeaths}\nTotal Recovered: ${totalRecovered}\n\nSource: Johns Hopkins CSSE`
+        result: `Total Cases: ${totalCases}\nTotal Deaths: ${totalDeaths}\nTotal Recovered: ${totalRecovered}\n\nSource: Johns Hopkins CSSE`,
       };
     } catch (err) {
       return { error: "it failed : " + err };
     }
   } else {
     /*
-    * Use of the 'Watson Discovery' as resource
-    */
+     * Use of the 'Watson Discovery' as resource
+     */
     const discovery = new DiscoveryV1({
       version: "2018-12-03",
       iam_apikey: params.api_key,
-      url: params.url
+      url: params.url,
     });
 
     offset = getRandomInt(50);
 
-    
-    
-    
-   
-    let queryParams=null;
-    if(params.typeCheck==="numeric") {
-        const numericsQueryParams = {
-          environment_id: params.env_id_numeric,
-          collection_id: params.collection_id_numeric,
-          highlight: true,
-          natural_language_query:
-          params.inputText,
-           count: 1
-        };
-        
-        queryParams=numericsQueryParams;
+    let queryParams = null;
+    if (params.type === "numeric") {
+      const numericsQueryParams = {
+        environment_id: params.env_id_numeric,
+        collection_id: params.collection_id_numeric,
+        highlight: true,
+        natural_language_query: params.inputText || "covid 19 status",
+        count: 1,
+      };
+
+      queryParams = numericsQueryParams;
+    } else if (params.type === "data") {
+      const normalQueryParams = {
+        environment_id: params.env_id,
+        collection_id: params.collection_id,
+        highlight: true,
+        natural_language_query: params.inputText || "covid 19 summary",
+        count: 1,
+      };
+      queryParams = normalQueryParams;
     } else {
-         const normalQueryParams = {
-          environment_id: params.env_id,
-          collection_id: params.collection_id,
-          highlight: true,
-          natural_language_query:
-          params.inputText,
-          count: 1
-        };
-        queryParams=normalQueryParams;
+      const commonQueryParams = {
+        environment_id: params.common_env_id,
+        collection_id: params.common_collection_id,
+        highlight: true,
+        natural_language_query: params.inputText || "covid 19 summary",
+        count: 1,
+      };
+      queryParams = commonQueryParams;
     }
     try {
       data = await discovery.query(queryParams);
-      
-      if (data.results == undefined ) {
-          return { "discovery response error" : data };
+
+      if (data.results == undefined) {
+        return { "discovery response error": data };
       }
-      
+
       let response = data.results.map((v, i) => {
         return ` ${v.text}`;
       });
       return {
         result:
-          "Here is three news article I found online.\n\n" +
-          response.join("\n\n")
+          "Here is the news article I found online.\n\n" +
+          response.join("\n\n"),
       };
     } catch (err) {
       return { error: "it failed : " + err };
