@@ -66,7 +66,6 @@ async function main(params) {
 
     offset = getRandomInt(50);
 
-
     let queryParams = null;
     if (params.type === "numeric") {
       const numericsQueryParams = {
@@ -87,7 +86,6 @@ async function main(params) {
         count: 1,
       };
       queryParams = normalQueryParams;
-
     } else {
       const commonQueryParams = {
         environment_id: params.common_env_id,
