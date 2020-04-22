@@ -196,16 +196,10 @@ var ConversationPanel = (function () {
       "latest",
       isTop ? "top" : "sub",
     ];
-    /*  if (res.innerhtml.includes("http://newsapi.org")) {
-      res.innerhtml =
-        '<div id="rootNews"> <div id="includedContent"></div> <script> console.log("  COVID1111111111999999999");</script> </div>';
-    }*/
-
     if (res.innerhtml.includes("newsapiorg.html")) {
       res.innerhtml =
         '<a href="' + res.innerhtml + '" target="_blank">Explore News</a>';
     }
-
     var messageJson = {
       // <div class='segments'>
       tagName: "div",
@@ -234,20 +228,7 @@ var ConversationPanel = (function () {
     };
     return Common.buildDomElement(messageJson);
   }
-  function getTextForNews() {
-    if (
-      gen.response_type === "text" &&
-      gen.text.includes("http://newsapi.org")
-    ) {
-      Api.getNewsFeedHTML(function (response) {
-        console.log(response);
-        gen.text = responses.push({
-          type: gen.response_type,
-          innerhtml: "<div>" + gen.description + "</div>",
-        });
-      });
-    }
-  }
+
   // Checks if the given typeValue matches with the user "name", the Watson "name", or neither
   // Returns true if user, false if Watson, and null if neither
   // Used to keep track of whether a message was from the user or Watson

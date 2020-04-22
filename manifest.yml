@@ -2,6 +2,5 @@ applications:
   - name: covid-crisis-communication-chatbot-aap
     command: npm start
     path: .
-    memory: 256M
+    memory: 128M
     instances: 1
-#comment added 
