@@ -193,11 +193,19 @@ function CloudandStorage(options) {
         }
       }
 
+      console.log(confidenceValue);
       confidenceValue = confidenceValue / count;
+      console.log("after eit", confidenceValue);
       if (confidenceValue > maxConfidence) {
         maxConfidence = confidenceValue;
-        topSuggestionGenric =
-          localGeneric.suggestions[suggestionIndex].output.generic;
+        console.log("Max", maxConfidence);
+        let prevTop = topSuggestionGenric;
+        let topVar = localGeneric.suggestions[suggestionIndex].output.generic;
+        topSuggestionGenric = topVar && topVar.length > 0 ? topVar : prevTop;
+        console.log(
+          "Max",
+          localGeneric.suggestions[suggestionIndex].output.generic
+        );
       }
     }
     console.log("end", topSuggestionGenric);
