@@ -214,7 +214,7 @@ function updateMessage(input, response) {
         }
       }
     }
-    //console.log("genericArray", genericArray);
+    console.log("genericArray", genericArray);
     if (genericArray.length > 0) {
       response.result.output.generic = genericArray;
     }
