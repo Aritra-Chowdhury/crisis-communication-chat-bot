@@ -1,41 +1,56 @@
 // The Api module is designed to handle all interactions with the server
 
-var Api = (function() {
+var Api = (function () {
   var requestPayload;
   var responsePayload;
-  var messageEndpoint = '/api/message';
+  var messageEndpoint = "/api/message";
 
-  var sessionEndpoint = '/api/session';
+  var sessionEndpoint = "/api/session";
+
+  var nesOrgHTMLEndpoint = "/api/newsfeedhtml";
 
   var sessionId = null;
+  var newsfeedhtmlResponse = null;
 
   // Publicly accessible methods defined
   return {
     sendRequest: sendRequest,
     getSessionId: getSessionId,
+    getNewsFeedHTML: getNewsFeedHTML,
 
     // The request/response getters/setters are defined here to prevent internal methods
     // from calling the methods without any of the callbacks that are added elsewhere.
-    getRequestPayload: function() {
+    getRequestPayload: function () {
       return requestPayload;
     },
-    setRequestPayload: function(newPayloadStr) {
+    setRequestPayload: function (newPayloadStr) {
       requestPayload = JSON.parse(newPayloadStr);
     },
-    getResponsePayload: function() {
+    getResponsePayload: function () {
       return responsePayload;
     },
-    setResponsePayload: function(newPayloadStr) {
+    setResponsePayload: function (newPayloadStr) {
       responsePayload = JSON.parse(newPayloadStr).result;
     },
-    setErrorPayload: function() {
-    }
+    setErrorPayload: function () {},
   };
+
+  function getNewsFeedHTML(callback) {
+    var http = new XMLHttpRequest();
+    http.open("GET", nesOrgHTMLEndpoint, true);
+    http.setRequestHeader("Content-type", "text/html");
+    http.onreadystatechange = function () {
+      if (http.readyState === XMLHttpRequest.DONE) {
+        callback(http.response);
+      }
+    };
+    http.send();
+  }
 
   function getSessionId(callback) {
     var http = new XMLHttpRequest();
-    http.open('GET', sessionEndpoint, true);
-    http.setRequestHeader('Content-type', 'application/json');
+    http.open("GET", sessionEndpoint, true);
+    http.setRequestHeader("Content-type", "application/json");
     http.onreadystatechange = function () {
       if (http.readyState === XMLHttpRequest.DONE) {
         let res = JSON.parse(http.response);
@@ -46,37 +61,43 @@ var Api = (function() {
     http.send();
   }
 
-
   // Send a message request to the server
   function sendRequest(text) {
     // Build request payload
     var payloadToWatson = {
-      session_id: sessionId
+      session_id: sessionId,
     };
 
     payloadToWatson.input = {
-      message_type: 'text',
+      message_type: "text",
       text: text,
     };
 
-
     // Built http request
     var http = new XMLHttpRequest();
-    http.open('POST', messageEndpoint, true);
-    http.setRequestHeader('Content-type', 'application/json');
-    http.onreadystatechange = function() {
-      if (http.readyState === XMLHttpRequest.DONE && http.status === 200 && http.responseText) {
+    http.open("POST", messageEndpoint, true);
+    http.setRequestHeader("Content-type", "application/json");
+    http.onreadystatechange = function () {
+      if (
+        http.readyState === XMLHttpRequest.DONE &&
+        http.status === 200 &&
+        http.responseText
+      ) {
         Api.setResponsePayload(http.responseText);
-      } else if (http.readyState === XMLHttpRequest.DONE && http.status !== 200) {
+      } else if (
+        http.readyState === XMLHttpRequest.DONE &&
+        http.status !== 200
+      ) {
         Api.setErrorPayload({
-          'output': {
-            'generic': [
+          output: {
+            generic: [
               {
-                'response_type': 'text',
-                'text': 'I\'m having trouble connecting to the server, please refresh the page'
-              }
+                response_type: "text",
+                text:
+                  "I'm having trouble connecting to the server, please refresh the page",
+              },
             ],
-          }
+          },
         });
       }
     };
@@ -91,4 +112,4 @@ var Api = (function() {
     // Send request
     http.send(params);
   }
-}());
+})();

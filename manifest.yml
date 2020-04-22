@@ -1,5 +1,7 @@
 applications:
-  - name: covid-crisis-communication-chatbot-hala
-    memory: 256
+  - name: covid-crisis-communication-chatbot-aap
+    command: npm start
+    path: .
+    memory: 256M
     instances: 1
 #comment added 

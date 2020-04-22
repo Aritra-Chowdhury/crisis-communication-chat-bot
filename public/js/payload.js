@@ -3,6 +3,8 @@
 /* eslint no-unused-vars: "off" */
 /* global Api: true, Common: true, PayloadPanel: true*/
 
+const newwApi = "";
+
 var PayloadPanel = (function() {
   var settings = {
     selectors: {
