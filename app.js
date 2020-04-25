@@ -106,7 +106,7 @@ app.post("/api/message", function (req, res) {
     if (
       data.result.output.generic &&
       data.result.output.generic[0].text &&
-      data.result.output.generic[0].text.includes("http://newsapi.org")
+      data.result.output.generic[0].text.includes("://newsapi.org")
     ) {
       let newsAPI = data.result.output.generic[0].text;
       var newsLink = "pages/" + local_sessionId + "tempnewsapiorg.html";
