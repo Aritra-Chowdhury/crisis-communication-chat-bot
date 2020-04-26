@@ -33,7 +33,7 @@ async function main(params) {
             params.country.toLowerCase()
           ) {
             return {
-              result: `Total Cases: ${summary.Countries[i].TotalConfirmed}\nTotal Deaths: ${summary.Countries[i].TotalDeaths}\nTotal Recovered: ${summary.Countries[i].TotalRecovered}\n\nSource: Johns Hopkins CSSE`,
+              result: `Data:Stats,Total Cases: ${summary.Countries[i].TotalConfirmed},\nTotal Deaths: ${summary.Countries[i].TotalDeaths},\nTotal Recovered: ${summary.Countries[i].TotalRecovered},\n\nSource: Johns Hopkins CSSE`,
             };
           }
         }
@@ -49,7 +49,7 @@ async function main(params) {
         totalRecovered += summary.Countries[i].TotalRecovered;
       }
       return {
-        result: `Total Cases: ${totalCases}\nTotal Deaths: ${totalDeaths}\nTotal Recovered: ${totalRecovered}\n\nSource: Johns Hopkins CSSE`,
+        result: `Data:Stats,Total Cases: ${totalCases},\nTotal Deaths: ${totalDeaths},\nTotal Recovered: ${totalRecovered},\n\nSource: Johns Hopkins CSSE`,
       };
     } catch (err) {
       return { error: "it failed : " + err };
