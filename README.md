@@ -19,7 +19,7 @@ This solution starter was created by technologists from IBM. Translations are av
 7. [Datasets](#datasets)
 8. [Technology](#technology)
 9. [Getting started](#getting-started)
-10. [Resources](#resources) 10.[License](#license)
+10. [Resources](#resources) 11.[License](#license)
 
 ## Overview
 
@@ -213,4 +213,22 @@ The following steps assume that you have created an assistant, imported the COVI
 
 1. View the application online at the app URL. For example, [covid-crisis-communication-chatbot-yourname.mybluemix.net](covid-crisis-communication-chatbot-yourname.mybluemix.net).
 
-## Take on COVID-19
+## Disclosures
+
+This tool is intended to provide information based on currently available CDC and other public information to help you make decisions about seeking appropriate medical care. This system is not intended for the diagnosis or treatment of disease or other conditions, including COVID-19, and you should not provide any personally identifying or private health information.
+
+This Watson Assistant bot is populated with data that is sourced from the following resources:
+
+- Most static responses provide information found on the CDC's COVID FAQ Page: https://www.cdc.gov/coronavirus/2019-ncov/faq.html
+- Dynamic infection and death counts are sourced from Johns Hopkins University via the following API: https://www.covid19api.com/
+- Dynamic news stories are sourced from Watson Discovery's news feed. Additional information on that service can be found here: https://www.ibm.com/watson/services/discovery-news/
+
+Dynamic news stories are sourced from Watson Discovery's Additional Source. Additional information on that service can be found here: https://www.cdc.gov/coronavirus/2019-ncov/
+
+Dynamic news stories are sourced from Watson Discovery's Additional Source. Additional information on that service can be found here: https://www.who.int/emergencies/diseases/novel-coronavirus-2019/
+
+Dynamic news stories are sourced from Watson Discovery's Additional Source. Additional information on that service can be found here: https://www.worldometers.info/coronavirus/
+
+## License
+
+This solution starter is made available under the [Apache 2 License](LICENSE).
