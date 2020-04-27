@@ -3,9 +3,9 @@
 
 ## Authors
 
-- [Aritra Chowdhury]()
+- [Aritra Chowdhury](https://www.linkedin.com/in/aritra-chowdhury/)
 - [Sumit Chakraborty]()
-- [Sukanta Banerjee]()
+- [Sukanta Banerjee](https://www.linkedin.com/in/sukanta-banerjee-6ab375100)
 
 ## Contents
 
