@@ -3,8 +3,8 @@
 
 ## Authors
 
-- [Aritra Chowdhury](https://www.linkedin.com/in/aritra-chowdhury/)
-- [Sumit Chakraborty]()
+- [Aritra Chowdhury](https://www.linkedin.com/in/aritra-chowdhury)
+- [Sumit Chakraborty](https://www.linkedin.com/in/sumitc22)
 - [Sukanta Banerjee](https://www.linkedin.com/in/sukanta-banerjee-6ab375100)
 
 ## Contents
